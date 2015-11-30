@@ -74,8 +74,11 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnTriggerExit(Collider other)
     {
-        GameManager.numPlayerInExit -= 1;
-        Debug.Log("Player leave, remain player: " + GameManager.numPlayerInExit);
+        if (other.transform.tag == "Goal")
+        {
+            GameManager.numPlayerInExit -= 1;
+            Debug.Log("Player leave, remain player: " + GameManager.numPlayerInExit);
+        }
     }
 
     void OnTriggerEnter(Collider other)
