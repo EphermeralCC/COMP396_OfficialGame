@@ -34,10 +34,14 @@ public class EnemyScript : MonoBehaviour
 	
 	private int randomPlayerIdx;
 	private float[] playerDist;
+
+	private NavMeshAgent agent;
 	
 	protected void Initialize()
 	{
-		
+
+		agent = GetComponent<NavMeshAgent>();
+
 		if (enemyTagPoints != "")
 		{
 			pointsEnemyWalk = GameObject.FindGameObjectsWithTag(enemyTagPoints);
@@ -105,10 +109,14 @@ public class EnemyScript : MonoBehaviour
 		}
 		else
 		{
-			
+
+			/*
 			Quaternion targetRotation = Quaternion.LookRotation(pointsEnemyWalk[indexPoint].transform.position - transform.position);
 			transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
 			transform.Translate(Vector3.forward * Time.deltaTime * speed);
+			*/
+
+			agent.SetDestination (pointsEnemyWalk[indexPoint].transform.position);
 			
 			if (Vector3.Distance(transform.position, pointsEnemyWalk[indexPoint].transform.position) < 2.0f)
 			{
@@ -141,9 +149,12 @@ public class EnemyScript : MonoBehaviour
 		
 		if (Vector3.Distance(transform.position, objPlayer.transform.position) < 11.0f)
 		{
+			/*
 			Quaternion targetRotation = Quaternion.LookRotation(objPlayer.transform.position - transform.position);
 			transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
 			transform.Translate(Vector3.forward * Time.deltaTime * speed);
+			*/
+			agent.SetDestination (objPlayer.transform.position);
 		}
 		else
 		{
