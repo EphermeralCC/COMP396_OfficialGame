@@ -14,8 +14,8 @@ public class BossScript : MonoBehaviour
 	
 	public FSMState curState;
 	public string enemyTagPoints; //Tag of enemy waypoints
-	public float speed; //Enemy Speed
-	public int randomTimer; //Enemy Speed
+	public float speedMin; //Enemy Speed
+	public float speedMax; //Enemy Speed
 
 	private GameObject[] pointsEnemyWalk;
 	private GameObject[] objPlayers;
@@ -50,7 +50,7 @@ public class BossScript : MonoBehaviour
 
 		while(true){
 			curState = ( UnityEngine.Random.Range (0,2) == 1 ? FSMState.Patrol : FSMState.Chase);
-			yield return new WaitForSeconds(randomTimer);
+			yield return new WaitForSeconds(UnityEngine.Random.Range (4,8));
 		}	
 	}
 	
@@ -104,7 +104,7 @@ public class BossScript : MonoBehaviour
 		
 		Quaternion targetRotation = Quaternion.LookRotation(objPlayer.transform.position - transform.position);
 		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
-		transform.Translate(Vector3.forward * Time.deltaTime * speed);
+		transform.Translate(Vector3.forward * Time.deltaTime * UnityEngine.Random.Range (speedMin,speedMax));
 
 	}
 	
